@@ -1,5 +1,5 @@
 # my-leaflet-ionic-map
-A clone of candlee work with additional MEAN stack integration.
+A clone of calendee (https://github.com/calendee/ionic-leafletjs-map-demo) work with some additional MEAN stack integration.
 
 # Plans
 This basic example utilizes a local object created within the app as the list of items. We're going to change this by adding a REST API backend. 
