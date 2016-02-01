@@ -38,6 +38,27 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
         }
       })
 
+// integrated routes from the my-notes project prefixed with app.*
+      .state('app.list', {
+        url: '/list',
+        templateUrl: "templates/list.html",
+        cache: false
+      })
+
+      .state('app.add', {
+        url: '/add',
+        templateUrl: "templates/edit.html",
+        controller: "AddCtrl"
+      })
+
+      .state('app.edit', {
+        url: '/edit/:locationId',
+        templateUrl: "templates/edit.html",
+        controller: 'EditCtrl'
+      })
+
+
+
     $urlRouterProvider.otherwise('/app/map');
 
   });
