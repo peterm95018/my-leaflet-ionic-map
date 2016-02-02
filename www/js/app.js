@@ -1,11 +1,6 @@
-// Ionic Starter App
+var app = angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncate', 'locations.locationstore']);
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncate'])
-
-  .run(function($ionicPlatform) {
+  app.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -19,7 +14,7 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider) {
+  app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
       .state('app', {
@@ -39,19 +34,20 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
       })
 
 // integrated routes from the my-notes project prefixed with app.*
-      .state('app.list', {
+      .state('list', {
         url: '/list',
         templateUrl: "templates/list.html",
+        controller: 'ListCtrl',
         cache: false
       })
 
-      .state('app.add', {
+      .state('add', {
         url: '/add',
         templateUrl: "templates/edit.html",
         controller: "AddCtrl"
       })
 
-      .state('app.edit', {
+      .state('edit', {
         url: '/edit/:locationId',
         templateUrl: "templates/edit.html",
         controller: 'EditCtrl'
@@ -62,3 +58,6 @@ angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'igTruncat
     $urlRouterProvider.otherwise('/app/map');
 
   });
+
+
+

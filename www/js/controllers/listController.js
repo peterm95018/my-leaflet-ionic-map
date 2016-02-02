@@ -1,4 +1,4 @@
-(function () {
+
 	'use strict'
 
 	app.controller('ListCtrl', function($scope, LocationStore) {
@@ -18,4 +18,3 @@
 });
 
 
-})();

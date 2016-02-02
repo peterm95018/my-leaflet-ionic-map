@@ -1,3 +1,5 @@
+
+
 angular.module('starter').controller('MapController',
   [ '$scope',
     '$cordovaGeolocation',
@@ -13,7 +15,8 @@ angular.module('starter').controller('MapController',
       $ionicModal,
       $ionicPopup,
       LocationsService,
-      InstructionsService
+      InstructionsService,
+      LocationStore
       ) {
 
       /**
