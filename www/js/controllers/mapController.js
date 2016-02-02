@@ -8,6 +8,7 @@ angular.module('starter').controller('MapController',
     '$ionicPopup',
     'LocationsService',
     'InstructionsService',
+    'LocationStore',
     function(
       $scope,
       $cordovaGeolocation,
@@ -24,7 +25,15 @@ angular.module('starter').controller('MapController',
        */
       $scope.$on("$stateChangeSuccess", function() {
 
-        $scope.locations = LocationsService.savedLocations;
+      LocationStore.list().then(function(locations) {
+            $scope.locations = locations;
+            console.log(locations);
+          });
+
+       // $scope.locations = LocationsService.savedLocations;
+       //$scope.locations = LocationStore.list();
+        
+
         $scope.newLocation;
 
         if(!InstructionsService.instructions.newLocations.seen) {
