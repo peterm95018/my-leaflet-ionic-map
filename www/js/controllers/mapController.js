@@ -9,6 +9,7 @@ angular.module('starter').controller('MapController',
     'LocationsService',
     'InstructionsService',
     'LocationStore',
+    '$http',
     function(
       $scope,
       $cordovaGeolocation,
@@ -17,7 +18,8 @@ angular.module('starter').controller('MapController',
       $ionicPopup,
       LocationsService,
       InstructionsService,
-      LocationStore
+      LocationStore,
+      $http
       ) {
 
       /**
@@ -121,27 +123,42 @@ angular.module('starter').controller('MapController',
       // };
 
 // psm changed a lot of stuff in original to map to our factory GET result
-        $scope.goTo = function(locationId) {
-          console.log('locationId ' + locationId);
+        $scope.goTo = function(locationKey) {
+          console.log('locationKey ' + locationKey);
 
-        var location = LocationStore.get(locationId);
+        // get our location detail 
+        LocationStore.get(locationKey).then(function(location) {
+          $scope.locDetail = location;
+        });
 
 
-        $scope.map.center  = {
-          lat : location.lattitude,
-          lng : location.longitude,
-          zoom : 12
-        };
+console.log($scope.locDetail.lattitude);
 
-        $scope.map.markers[locationId] = {
-          lat:location.lattitude,
-          lng:location.longitude,
-          message: location.assetName,
+          $scope.map.center  = {
+           lat : parseFloat($scope.locDetail.lattitude),
+           lng : parseFloat($scope.locDetail.longitude),
+           zoom : 15
+         };
+
+        $scope.map.markers[locationKey] = {
+           lat : parseFloat($scope.locDetail.lattitude),
+           lng : parseFloat($scope.locDetail.longitude),
+          message: $scope.locDetail.assetName,
           focus: true,
           draggable: false
         };
 
-      };
+
+
+     //    $scope.map.markers[locationKey] = {
+     //      lat:location.lattitude,
+     //      lng:location.longitude,
+     //      message: location.name,
+     //      focus: true,
+     //      draggable: false
+     //    };
+
+       };
 
 
 

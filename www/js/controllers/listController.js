@@ -6,7 +6,6 @@
   function refreshLocations() {
     LocationStore.list().then(function(locations) {
       $scope.locations = locations;
-      console.log(locations);
     });
   }
   refreshLocations();
