@@ -1,0 +1,34 @@
+<ion-view view-title="My Locations" ng-controller="ListCtrl">
+<!-- <ion-content>
+	<ion-list show-reorder="reordering">
+		<ion-item class="item-remove-animate item-icon-right" href="#/edit/{{note.id}}" class="item" ng-repeat="note in notes track by note.id">
+			<h2>{{note.title}}</h2>
+			<p>{{note.description}}</p>
+			<i class="icon ion-arrow-right-b"></i>
+			<ion-reorder-button class="ion-drag" 
+			on-reorder="move(note, $fromIndex, $toIndex)"></ion-reorder-button>
+			<ion-option-button class="button-assertive icon-left ion-trash-b" ng-click="remove(note.id)">Delete</ion-option-button>
+		</ion-item>
+	</ion-list>
+</ion-content> -->
+
+<ion-content>
+	<ion-list>
+		<ion-item class="item-icon-right" href="#/edit/{{location._id}}"
+		class="item" ng-repeat="location in locations track by location._id">
+			<h2>{{location.assetName}}</h2>
+        	<p>{{location.address}}</p>
+
+        	<i class="icon ion-arrow-right-b"></i>
+        	<ion-option-button class="button-assertive icon-left ion-trash-b"
+          	ng-click="remove(note.id)">Delete</ion-option-button>
+	</ion-list>
+</ion-content>
+
+
+
+<div class="bar bar-footer bar-stable">
+	<a href="#/add" class="button button-assertive icon-left ion-compose">New Location</a>
+
+</div>
+</ion-view>

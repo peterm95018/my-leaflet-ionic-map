@@ -25,9 +25,11 @@
           {{location.name}}
         </ion-item> -->
 
-        <ion-item nav-clear menu-close ng-click="goTo(locationKey)" ng-repeat="location in locations track by location._id">
+    <ion-item nav-clear menu-close ng-click="goTo(locationKey)" ng-repeat="(locationKey,location) in locations track by location._id">
           <h2>{{location.assetName}}</h2>
           <p>{{location.address}}</p>
+        </ion-item>
+
         </ion-item>
 
       </ion-list>

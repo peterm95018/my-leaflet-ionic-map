@@ -27,11 +27,10 @@ angular.module('starter').controller('MapController',
 
       LocationStore.list().then(function(locations) {
             $scope.locations = locations;
-            console.log(locations);
+            // console.log(locations);
           });
 
-       // $scope.locations = LocationsService.savedLocations;
-       //$scope.locations = LocationStore.list();
+      // $scope.locations = LocationsService.savedLocations;
         
 
         $scope.newLocation;
@@ -101,25 +100,50 @@ angular.module('starter').controller('MapController',
        * Center map on specific saved location
        * @param locationKey
        */
-      $scope.goTo = function(locationKey) {
+      // $scope.goTo = function(locationKey) {
 
-        var location = LocationsService.savedLocations[locationKey];
+      //   var location = LocationsService.savedLocations[locationKey];
+
+      //   $scope.map.center  = {
+      //     lat : location.lat,
+      //     lng : location.lng,
+      //     zoom : 12
+      //   };
+
+      //   $scope.map.markers[locationKey] = {
+      //     lat:location.lat,
+      //     lng:location.lng,
+      //     message: location.name,
+      //     focus: true,
+      //     draggable: false
+      //   };
+
+      // };
+
+// psm changed a lot of stuff in original to map to our factory GET result
+        $scope.goTo = function(locationId) {
+          console.log('locationId ' + locationId);
+
+        var location = LocationStore.get(locationId);
+
 
         $scope.map.center  = {
-          lat : location.lat,
-          lng : location.lng,
+          lat : location.lattitude,
+          lng : location.longitude,
           zoom : 12
         };
 
-        $scope.map.markers[locationKey] = {
-          lat:location.lat,
-          lng:location.lng,
-          message: location.name,
+        $scope.map.markers[locationId] = {
+          lat:location.lattitude,
+          lng:location.longitude,
+          message: location.assetName,
           focus: true,
           draggable: false
         };
 
       };
+
+
 
       /**
        * Center map on user's current position
