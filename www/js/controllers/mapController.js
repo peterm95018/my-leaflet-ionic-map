@@ -68,35 +68,35 @@ angular.module('starter').controller('MapController',
 
       });
 
-      var Location = function() {
-        if ( !(this instanceof Location) ) return new Location();
-        this.lat  = "";
-        this.lng  = "";
-        this.name = "";
-      };
+      // var Location = function() {
+      //   if ( !(this instanceof Location) ) return new Location();
+      //   this.lat  = "";
+      //   this.lng  = "";
+      //   this.name = "";
+      // };
 
-      $ionicModal.fromTemplateUrl('templates/addLocation.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-          $scope.modal = modal;
-        });
+      // $ionicModal.fromTemplateUrl('templates/addLocation.html', {
+      //   scope: $scope,
+      //   animation: 'slide-in-up'
+      // }).then(function(modal) {
+      //     $scope.modal = modal;
+      //   });
 
       /**
        * Detect user long-pressing on map to add new location
        */
-      $scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
-        $scope.newLocation = new Location();
-        $scope.newLocation.lat = locationEvent.leafletEvent.latlng.lat;
-        $scope.newLocation.lng = locationEvent.leafletEvent.latlng.lng;
-        $scope.modal.show();
-      });
+      // $scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
+      //   $scope.newLocation = new Location();
+      //   $scope.newLocation.lat = locationEvent.leafletEvent.latlng.lat;
+      //   $scope.newLocation.lng = locationEvent.leafletEvent.latlng.lng;
+      //   $scope.modal.show();
+      // });
 
-      $scope.saveLocation = function() {
-        LocationsService.savedLocations.push($scope.newLocation);
-        $scope.modal.hide();
-        $scope.goTo(LocationsService.savedLocations.length - 1);
-      };
+      // $scope.saveLocation = function() {
+      //   LocationsService.savedLocations.push($scope.newLocation);
+      //   $scope.modal.hide();
+      //   $scope.goTo(LocationsService.savedLocations.length - 1);
+      // };
 
       /**
        * Center map on specific saved location
@@ -124,39 +124,22 @@ angular.module('starter').controller('MapController',
 
 // psm changed a lot of stuff in original to map to our factory GET result
         $scope.goTo = function(locationKey) {
-          console.log('locationKey ' + locationKey);
+         var locDetail = $scope.locations[locationKey];
 
-        // get our location detail 
-        LocationStore.get(locationKey).then(function(location) {
-          $scope.locDetail = location;
-        });
-
-
-console.log($scope.locDetail.lattitude);
 
           $scope.map.center  = {
-           lat : parseFloat($scope.locDetail.lattitude),
-           lng : parseFloat($scope.locDetail.longitude),
-           zoom : 15
+           lat : parseFloat(locDetail.lattitude),
+           lng : parseFloat(locDetail.longitude),
+           zoom : 16
          };
 
         $scope.map.markers[locationKey] = {
-           lat : parseFloat($scope.locDetail.lattitude),
-           lng : parseFloat($scope.locDetail.longitude),
-          message: $scope.locDetail.assetName,
+           lat : parseFloat(locDetail.lattitude),
+           lng : parseFloat(locDetail.longitude),
+          message: locDetail.assetName,
           focus: true,
           draggable: false
         };
-
-
-
-     //    $scope.map.markers[locationKey] = {
-     //      lat:location.lattitude,
-     //      lng:location.longitude,
-     //      message: location.name,
-     //      focus: true,
-     //      draggable: false
-     //    };
 
        };
 
@@ -165,29 +148,29 @@ console.log($scope.locDetail.lattitude);
       /**
        * Center map on user's current position
        */
-      $scope.locate = function(){
+      // $scope.locate = function(){
 
-        $cordovaGeolocation
-          .getCurrentPosition()
-          .then(function (position) {
-            $scope.map.center.lat  = position.coords.latitude;
-            $scope.map.center.lng = position.coords.longitude;
-            $scope.map.center.zoom = 15;
+      //   $cordovaGeolocation
+      //     .getCurrentPosition()
+      //     .then(function (position) {
+      //       $scope.map.center.lat  = position.coords.latitude;
+      //       $scope.map.center.lng = position.coords.longitude;
+      //       $scope.map.center.zoom = 15;
 
-            $scope.map.markers.now = {
-              lat:position.coords.latitude,
-              lng:position.coords.longitude,
-              message: "You Are Here",
-              focus: true,
-              draggable: false
-            };
+      //       $scope.map.markers.now = {
+      //         lat:position.coords.latitude,
+      //         lng:position.coords.longitude,
+      //         message: "You Are Here",
+      //         focus: true,
+      //         draggable: false
+      //       };
 
-          }, function(err) {
-            // error
-            console.log("Location error!");
-            console.log(err);
-          });
+      //     }, function(err) {
+      //       // error
+      //       console.log("Location error!");
+      //       console.log(err);
+      //     });
 
-      };
+      // };
 
     }]);
