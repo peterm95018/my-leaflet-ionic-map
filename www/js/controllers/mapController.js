@@ -24,36 +24,41 @@ angular.module('starter').controller('MapController',
 
       /**
        * Once state loaded, get put map on scope.
+       * Note that PSM put an initial center object in
+       * which has fixed a zoom issue where we didn't zoom
        */
       $scope.$on("$stateChangeSuccess", function() {
 
       LocationStore.list().then(function(locations) {
             $scope.locations = locations;
-            // console.log(locations);
+            //console.dir(locations[0]);
           });
 
       // $scope.locations = LocationsService.savedLocations;
-        
+        // $scope.newLocation;
 
-        $scope.newLocation;
+        // if(!InstructionsService.instructions.newLocations.seen) {
 
-        if(!InstructionsService.instructions.newLocations.seen) {
+        //   var instructionsPopup = $ionicPopup.alert({
+        //     title: 'Add Locations',
+        //     template: InstructionsService.instructions.newLocations.text
+        //   });
+        //   instructionsPopup.then(function(res) {
+        //     InstructionsService.instructions.newLocations.seen = true;
+        //     });
 
-          var instructionsPopup = $ionicPopup.alert({
-            title: 'Add Locations',
-            template: InstructionsService.instructions.newLocations.text
-          });
-          instructionsPopup.then(function(res) {
-            InstructionsService.instructions.newLocations.seen = true;
-            });
-
-        }
+        // }
 
         $scope.map = {
           defaults: {
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
             maxZoom: 18,
             zoomControlPosition: 'bottomleft'
+          },
+          center: {
+            lat: 36.9944,
+            lng: -122.0622,
+            zoom: 15
           },
           markers : {},
           events: {
@@ -64,7 +69,8 @@ angular.module('starter').controller('MapController',
           }
         };
 
-        $scope.goTo(0);
+        var locationKey = 23;
+        $scope.goTo(locationKey);
 
       });
 
@@ -98,39 +104,22 @@ angular.module('starter').controller('MapController',
       //   $scope.goTo(LocationsService.savedLocations.length - 1);
       // };
 
-      /**
-       * Center map on specific saved location
-       * @param locationKey
-       */
-      // $scope.goTo = function(locationKey) {
+ 
 
-      //   var location = LocationsService.savedLocations[locationKey];
+      /*
+      * Note that this generates an error on the firsst
+      * load. After that, the $scope.locations is set
+      * probaly should initialize it in the head of app
+      * @param locationKey
+      */
 
-      //   $scope.map.center  = {
-      //     lat : location.lat,
-      //     lng : location.lng,
-      //     zoom : 12
-      //   };
-
-      //   $scope.map.markers[locationKey] = {
-      //     lat:location.lat,
-      //     lng:location.lng,
-      //     message: location.name,
-      //     focus: true,
-      //     draggable: false
-      //   };
-
-      // };
-
-// psm changed a lot of stuff in original to map to our factory GET result
         $scope.goTo = function(locationKey) {
          var locDetail = $scope.locations[locationKey];
-
 
           $scope.map.center  = {
            lat : parseFloat(locDetail.lattitude),
            lng : parseFloat(locDetail.longitude),
-           zoom : 16
+           zoom : 17
          };
 
         $scope.map.markers[locationKey] = {
@@ -148,29 +137,29 @@ angular.module('starter').controller('MapController',
       /**
        * Center map on user's current position
        */
-      // $scope.locate = function(){
+      $scope.locate = function(){
 
-      //   $cordovaGeolocation
-      //     .getCurrentPosition()
-      //     .then(function (position) {
-      //       $scope.map.center.lat  = position.coords.latitude;
-      //       $scope.map.center.lng = position.coords.longitude;
-      //       $scope.map.center.zoom = 15;
+        $cordovaGeolocation
+          .getCurrentPosition()
+          .then(function (position) {
+            $scope.map.center.lat  = position.coords.latitude;
+            $scope.map.center.lng = position.coords.longitude;
+            $scope.map.center.zoom = 15;
 
-      //       $scope.map.markers.now = {
-      //         lat:position.coords.latitude,
-      //         lng:position.coords.longitude,
-      //         message: "You Are Here",
-      //         focus: true,
-      //         draggable: false
-      //       };
+            $scope.map.markers.now = {
+              lat:position.coords.latitude,
+              lng:position.coords.longitude,
+              message: "You Are Here",
+              focus: true,
+              draggable: false
+            };
 
-      //     }, function(err) {
-      //       // error
-      //       console.log("Location error!");
-      //       console.log(err);
-      //     });
+          }, function(err) {
+            // error
+            console.log("Location error!");
+            console.log(err);
+          });
 
-      // };
+      };
 
     }]);
