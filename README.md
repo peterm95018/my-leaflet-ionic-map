@@ -15,4 +15,4 @@ We'll also need to review the angular controllers and locgically split them out 
 
 Finally, we'll compile the code under the Ionic framework and see if we can make this work as both a mobile app and a desktop site. 
 
-<img src="Screen Shot 2016-03-16 at 10.05.06 AM">
+<img src="Screen Shot 2016-03-16 at 10.05.06 AM.png">
